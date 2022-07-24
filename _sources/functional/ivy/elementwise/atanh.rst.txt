@@ -3,23 +3,9 @@ atanh
 
 .. autofunction:: ivy.functional.ivy.elementwise.atanh
 
-.. autofunction:: ivy.array.array_methods.atan
-
-.. autofunction:: ivy.array.array_methods.tanh
-
-.. autofunction:: ivy.array.array_methods.tan
-
 .. autofunction:: ivy.array.array_methods.atanh
 
-.. autofunction:: ivy.container.container_methods.static_tanh
-
-.. autofunction:: ivy.container.container_methods.atan
-
-.. autofunction:: ivy.container.container_methods.tanh
-
-.. autofunction:: ivy.container.container_methods.static_tan
-
-.. autofunction:: ivy.container.container_methods.tan
+.. autofunction:: ivy.container.container_methods.static_atanh
 
 .. autofunction:: ivy.container.container_methods.atanh
 |
@@ -51,4 +37,5 @@ atanh
    atanh/atanh_functional.rst
    atanh/atanh_array.rst
    atanh/atanh_container.rst
+   atanh/static_atanh_container.rst
 

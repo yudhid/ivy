@@ -3,17 +3,9 @@ floor_divide
 
 .. autofunction:: ivy.functional.ivy.elementwise.floor_divide
 
-.. autofunction:: ivy.array.array_methods.divide
-
-.. autofunction:: ivy.array.array_methods.floor
-
 .. autofunction:: ivy.array.array_methods.floor_divide
 
-.. autofunction:: ivy.container.container_methods.divide
-
-.. autofunction:: ivy.container.container_methods.floor
-
-.. autofunction:: ivy.container.container_methods.static_divide
+.. autofunction:: ivy.container.container_methods.static_floor_divide
 
 .. autofunction:: ivy.container.container_methods.floor_divide
 |
@@ -45,4 +37,5 @@ floor_divide
    floor_divide/floor_divide_functional.rst
    floor_divide/floor_divide_array.rst
    floor_divide/floor_divide_container.rst
+   floor_divide/static_floor_divide_container.rst
 
