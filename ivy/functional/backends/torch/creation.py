@@ -1,4 +1,5 @@
 # global
+from tkinter import NONE
 import numpy as np
 import torch
 from torch import Tensor
@@ -13,8 +14,8 @@ from ivy import (
     default_device,
     shape_to_tuple,
 )
-from ivy.functional.backends.torch.device import dev
-from ivy.functional.backends.numpy.data_type import as_ivy_dtype
+from ivy import dev
+from ivy import as_ivy_dtype
 
 
 # Array API Standard #
