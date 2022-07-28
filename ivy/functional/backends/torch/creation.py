@@ -284,9 +284,9 @@ def linspace_helper(start, stop, num, axis=None, device=None, dtype=None):
         else:
             res = [
                 linspace_method(
-                    strt, stp, num, device=as_native_dev(device), dtype=dtype
+                    start, stop, num, device=as_native_dev(device), dtype=dtype
                 )
-                for strt, stp in zip(start, stop)
+                for start, stop in zip(start, stop)
             ]
         torch.cat(res, -1).reshape(start_shape + [num])
     elif start_is_array and not stop_is_array:
@@ -302,9 +302,9 @@ def linspace_helper(start, stop, num, axis=None, device=None, dtype=None):
         else:
             res = [
                 linspace_method(
-                    strt, stop, num, device=as_native_dev(device), dtype=dtype
+                    start, stop, num, device=as_native_dev(device), dtype=dtype
                 )
-                for strt in start
+                for start in start
             ]
     elif not start_is_array and stop_is_array:
         if num < stop.shape[0]:
@@ -319,9 +319,9 @@ def linspace_helper(start, stop, num, axis=None, device=None, dtype=None):
         else:
             res = [
                 linspace_method(
-                    start, stp, num, device=as_native_dev(device), dtype=dtype
+                    start, stop, num, device=as_native_dev(device), dtype=dtype
                 )
-                for stp in stop
+                for stop in stop
             ]
     else:
         return linspace_method(
@@ -396,7 +396,7 @@ def zeros_like(
 
 
 array = asarray
-
+']
 
 def logspace(start, stop, num, base=10.0, axis=None, *, device: torch.device):
     power_seq = linspace(
