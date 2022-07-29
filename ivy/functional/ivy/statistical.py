@@ -20,8 +20,8 @@ from ivy.func_wrapper import (
 @handle_nestable
 def max(
     x: Union[ivy.Array, ivy.NativeArray],
-    axis: Union[int, Sequence[int]] = None,
-    keepdims: bool = False,
+    axis: Optional[Union[int, Sequence[int]]] = None,
+    keepdims: Optional[bool] = False,
     *,
     out: Optional[ivy.Array] = None,
 ) -> ivy.Array:
@@ -75,6 +75,15 @@ def max(
     but this function is *nestable*, and therefore also accepts :code:`ivy.Container`
     instances in place of any of the arguments.
 
+    Examples
+    --------
+    With :code:`ivy.Array` input:
+
+    >>> x = ivy.array([1, 2, 3])
+    >>> z = x.max()
+    >>> print(z)
+    ivy.array(3)
+
     >>> x = ivy.array([0, 1, 2])
     >>> z = ivy.array([0,0,0])
     >>> y = ivy.max(x, out=z)
@@ -91,6 +100,8 @@ def max(
     >>> print(y)
     ivy.array(10)
 
+    With :code:`ivy.Container` input:
+
     >>> x = ivy.Container(a=ivy.array([0., 1., 2.]), b=ivy.array([3., 4., 5.]))
     >>> y = ivy.max(x)
     >>> print(y)
@@ -98,11 +109,6 @@ def max(
         a: ivy.array(2.),
         b: ivy.array(5.)
     }
-
-    >>> x = ivy.array([1, 2, 3])
-    >>> z = x.max()
-    >>> print(z)
-    ivy.array(3)
 
     >>> x = ivy.Container(a=ivy.array([1, 2, 3]),\
                           b=ivy.array([2, 3, 4]))
@@ -273,8 +279,20 @@ def prod(
         the products. The returned array must have a data type as described by the dtype
         parameter above.
 
+    >>> x = ivy.array([1, 2, 3])
+    >>> z = ivy.prod(x)
+    >>> print(z)
+    ivy.array(6)
+
+    >>> x = ivy.array([1, 0, 3])
+    >>> z = ivy.prod(x)
+    >>> print(z)
+    ivy.array(0)
+
     """
-    return current_backend.prod(x, axis=axis, dtype=dtype, keepdims=keepdims, out=out)
+    return current_backend(x).prod(
+        x, axis=axis, dtype=dtype, keepdims=keepdims, out=out
+    )
 
 
 @to_native_arrays_and_back
@@ -437,7 +455,8 @@ def var(
     *,
     out: Optional[ivy.Array] = None,
 ) -> ivy.Array:
-    """Calculates the variance of the input array x.
+    """
+    Calculates the variance of the input array x.
 
     **Special Cases**
 
@@ -480,6 +499,45 @@ def var(
         if the variance was computed over the entire array, a zero-dimensional array
         containing the variance; otherwise, a non-zero-dimensional array containing the
         variances. The returned array must have the same data type as x.
+    
+    Examples
+    --------
+
+    With :code:`ivy.Array` input:
+
+    >>> x = ivy.array([0.1, 0.2, 0.3, 0.3, 0.9, 0.10])
+    >>> y = ivy.var(x)
+    >>> print(y)
+    ivy.array(0.07472222)
+
+    >>> x = ivy.array([0.1, 0.2, 0.3, 0.3, 0.9, 0.10])
+    >>> y = ivy.zeros(6)
+    >>> ivy.var(x, out=y)
+    >>> print(y)
+    ivy.array(0.07472222)
+
+    >>> x = ivy.array([0.1, 0.2, 0.3, 0.3, 0.9, 0.10])
+    >>> ivy.var(x, out=x)
+    >>> print(x)
+    ivy.array(0.)
+
+    With :code:`ivy.native_array` input:
+
+    >>> x = ivy.native_array([0.1, 0.2, 0.3, 0.3, 0.9, 0.10])
+    >>> y = ivy.var(x)
+    >>> print(y)
+    ivy.array(0.07472222)
+
+    With :code:`ivy.Container` input:
+
+    >>> x = ivy.Container(a=ivy.array([0.1, 0.2, 0.9]), \
+                          b=ivy.array([0.7, 0.1, 0.9]))
+    >>> y = ivy.var(x)
+    >>> print(y)
+    {
+        a:ivy.array(0.12666667),
+        b:ivy.array(0.11555555)
+    }
 
     """
     return current_backend(x).var(x, axis, correction, keepdims, out=out)
